@@ -1,16 +1,20 @@
-#include <stdio.h>
-#if defined(WIN32)
-//#  pragma comment(linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"")
-#  pragma comment(lib, "glew32.lib")
-#  include "glew.h"
-#  include "glut.h"
-#  include "glext.h"
+﻿//
+// voxelize1.cpp
+//
+#if defined(_WIN32)
+#  define _USE_MATH_DEFINES
+#  define _CRT_SECURE_NO_WARNINGS
+#  include <GL/glew.h>
+#  include <GL/glut.h>
 #elif defined(__APPLE__) || defined(MACOSX)
+#  define GL_SILENCE_DEPRECATION
 #  include <GLUT/glut.h>
 #else
 #  define GL_GLEXT_PROTOTYPES
 #  include <GL/glut.h>
 #endif
+#include <stdio.h>
+#include <stdlib.h>
 
 #ifdef DEBUG
 static void CheckFramebufferStatus(void)
@@ -245,7 +249,7 @@ static void idle(void)
 */
 static void init(void)
 {
-#if defined(WIN32)
+#if defined(_WIN32)
   /* GLEW の初期化 */
   GLenum err = glewInit();
   if (err != GLEW_OK) {
